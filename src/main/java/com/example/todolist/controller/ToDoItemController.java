@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/todos")
 public class ToDoItemController {
@@ -32,7 +33,7 @@ public class ToDoItemController {
     }
 
     @GetMapping("/{id}")
-    public TodoItemResponse getById(@PathVariable Integer id) throws ToDoItemNotFoundException {
+    public TodoItemResponse getById(@PathVariable String id) throws ToDoItemNotFoundException {
         ToDoItem  todoItem = toDoItemService.get(id);
         return todoItemMapper.toResponse(todoItem);
     }
@@ -45,13 +46,13 @@ public class ToDoItemController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodoItem(@PathVariable Integer id) {
+    public void deleteTodoItem(@PathVariable String id) {
         toDoItemService.delete(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public TodoItemResponse updateTodoItem(@PathVariable Integer id,@RequestBody TodoItemRequest todoItemRequest) throws ToDoItemNotFoundException {
+    public TodoItemResponse updateTodoItem(@PathVariable String id,@RequestBody TodoItemRequest todoItemRequest) throws ToDoItemNotFoundException {
         ToDoItem todoItem = toDoItemService.update(id,todoItemMapper.toEntity(todoItemRequest));
         return todoItemMapper.toResponse(todoItem);
     }

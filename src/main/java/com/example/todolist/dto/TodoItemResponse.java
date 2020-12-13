@@ -1,24 +1,28 @@
 package com.example.todolist.dto;
 
+import java.util.List;
+
 public class TodoItemResponse {
-    private Integer toDoId;
+    private String toDoId;
     private String text;
     private Boolean isDone;
+    private List<String> tags;
 
-    public TodoItemResponse(Integer id, String text, Boolean done){
+    public TodoItemResponse(String id, String text, Boolean done, List<String> tags){
         this.toDoId = id;
         this.text = text;
         this.isDone = done;
+        this.tags = tags;
     }
 
     public TodoItemResponse(){
     }
 
-    public Integer getToDoId() {
+    public String getToDoId() {
         return toDoId;
     }
 
-    public void setToDoId(Integer toDoId) {
+    public void setToDoId(String toDoId) {
         this.toDoId = toDoId;
     }
 
@@ -34,7 +38,15 @@ public class TodoItemResponse {
         return isDone;
     }
 
-    public void setIsDone(Boolean isDone) {
+    public void setIsDone(Boolean isDone){
         this.isDone = isDone;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

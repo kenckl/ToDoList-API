@@ -18,7 +18,7 @@ public class ToDoItemService {
         return toDoItemRepository.findAll();
     }
 
-    public ToDoItem get(Integer id) throws ToDoItemNotFoundException {
+    public ToDoItem get(String id) throws ToDoItemNotFoundException {
         return toDoItemRepository.findById(id).orElseThrow(() -> new ToDoItemNotFoundException()) ;
 
     }
@@ -26,13 +26,15 @@ public class ToDoItemService {
         return toDoItemRepository.save(toDoItem);
     }
 
-    public ToDoItem update(Integer id, ToDoItem toDoItem) throws ToDoItemNotFoundException {
-        ToDoItem newToDoItem = get(id);
-        newToDoItem.setDone(toDoItem.isDone());
-        return toDoItemRepository.save(newToDoItem);
+    public ToDoItem update(String id, ToDoItem toDoItem) throws ToDoItemNotFoundException {
+        if (toDoItemRepository.existsById(id)){
+            toDoItem.setToDoId(id);
+            return toDoItemRepository.save(toDoItem);
+        }
+        throw new ToDoItemNotFoundException();
     }
 
-    public void delete(Integer id){
+    public void delete(String id){
         toDoItemRepository.deleteById(id);
     }
 
